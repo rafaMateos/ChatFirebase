@@ -24,6 +24,7 @@
             android:layout_height="wrap_content"
             android:text="Crear nueva cuenta"
             android:textSize="20sp"
+            android:textColor="@android:color/black"
             android:textStyle="bold"/>
 
         <EditText
@@ -57,7 +58,7 @@
             android:layout_height="match_parent"
             android:text="Register"
             android:id="@+id/btn_register"
-            android:background="@color/colorPrimaryDark"
+            android:background="@drawable/botonredondo"
             android:layout_marginTop="10dp"
             android:textColor="#fff"/>
 

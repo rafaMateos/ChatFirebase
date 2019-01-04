@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class StartActivity extends AppCompatActivity {
 
     Button login,register;
+    TextView AboutMe;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,6 +20,7 @@ public class StartActivity extends AppCompatActivity {
 
         login = findViewById(R.id.login);
         register = findViewById(R.id.register);
+        AboutMe = findViewById(R.id.textView);
 
         login.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -32,6 +35,15 @@ public class StartActivity extends AppCompatActivity {
                 startActivity(new Intent(StartActivity.this,RegisterActivity.class));
             }
         });
+
+
+
+    }
+
+    public void Aboutme(View v){
+
+        Intent intent = new Intent(StartActivity.this,com.example.rafael.chatfirebase.AboutMe.class);
+        startActivity(intent);
 
     }
 }
