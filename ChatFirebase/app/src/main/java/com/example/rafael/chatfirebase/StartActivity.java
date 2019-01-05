@@ -9,10 +9,36 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class StartActivity extends AppCompatActivity {
 
     Button login,register;
     TextView AboutMe;
+
+    FirebaseUser firebaseUser;
+
+
+
+    //Comprobacion para mantener sesion iniciada
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if(firebaseUser != null){
+
+            Intent intent = new Intent(StartActivity.this,MainActivity.class);
+            startActivity(intent);
+            finish();
+
+        }
+
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
