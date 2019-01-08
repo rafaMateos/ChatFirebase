@@ -20,11 +20,11 @@ public class StartActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
 
 
-
     //Comprobacion para mantener sesion iniciada
     @Override
     protected void onStart() {
         super.onStart();
+
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
