@@ -26,7 +26,7 @@
             android:id="@+id/show_message"
             android:textSize="18sp"
             android:text="Mesgae"
-            android:textColor="#fff"
+            android:textColor="@android:color/white"
             android:layout_alignParentRight="true"/>
     </RelativeLayout>
 

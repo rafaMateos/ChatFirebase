@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#e6e6e6"
+    android:background="#fff"
     tools:context=".MessageActivity">
 
     <android.support.design.widget.AppBarLayout
@@ -44,36 +44,40 @@
     </android.support.design.widget.AppBarLayout>
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/recycler_view"
+        android:layout_above="@id/bottom"
         android:layout_below="@id/bar_layot"
-        android:layout_above="@id/bottom"/>
+        android:background="#fff" />
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:padding="5dp"
-        android:background="@drawable/textmono"
         android:id="@+id/bottom"
-        android:layout_marginBottom="1dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
         android:layout_alignParentBottom="true"
-        android:layout_height="wrap_content">
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/textmono"
+        android:padding="5dp">
 
         <EditText
+            android:id="@+id/text_send"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/text_send"
-            android:background="@android:color/transparent"
+            android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/btn_send"
-            android:layout_centerVertical="true"/>
+            android:background="@android:color/transparent" />
 
         <ImageButton
-            android:layout_width="40dp"
-            android:layout_height="40dp"
             android:id="@+id/btn_send"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:background="@drawable/ic_action_name"/>
+            android:background="@drawable/ic_action_name" />
 
 
     </RelativeLayout>
