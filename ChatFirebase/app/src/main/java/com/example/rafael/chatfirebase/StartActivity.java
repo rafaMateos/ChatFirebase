@@ -14,13 +14,22 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class StartActivity extends AppCompatActivity {
 
+    /** Elementos de la actividad*/
     Button login,register;
     TextView AboutMe;
 
+    /** Elementos firebase*/
     FirebaseUser firebaseUser;
 
 
-    //Comprobacion para mantener sesion iniciada
+    /**
+    Descripcion funcionamientos:
+
+        Comprobacion para asi saber si el usuario tiene ya una sesion iniciada en la aplicacion
+        Comprobaremos si el usuario esta registrado, si lo esta entrara directamente en la aplicacion.
+        Si se deslogeara la aplicacion sabria que en ese momento no estaria activo.
+
+    */
     @Override
     protected void onStart() {
         super.onStart();
@@ -39,6 +48,8 @@ public class StartActivity extends AppCompatActivity {
     }
 
 
+
+    /** Metodo onCreate del ciclo de vida*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,13 +59,16 @@ public class StartActivity extends AppCompatActivity {
         register = findViewById(R.id.register);
         AboutMe = findViewById(R.id.textView);
 
+        //Click del boton login
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(StartActivity.this,LoginActivity.class));
+
             }
         });
 
+        //Click del boton login
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,6 +79,7 @@ public class StartActivity extends AppCompatActivity {
 
 
     }
+
 
     public void Aboutme(View v){
 

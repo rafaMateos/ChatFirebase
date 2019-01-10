@@ -19,10 +19,15 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 
 public class LoginActivity extends AppCompatActivity {
 
-    EditText email,password;
-    Button btn_login;
+    /** Elementos de la actividad*/
+    private EditText email,password;
+    private Button btn_login;
 
-    FirebaseAuth auth;
+    /** Elementos firebase*/
+    private FirebaseAuth auth;
+
+
+    /** Metodo on create del ciclo de vida*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,37 +39,52 @@ public class LoginActivity extends AppCompatActivity {
         password = findViewById(R.id.pasword);
         btn_login = findViewById(R.id.btn_login);
 
+        //Click del boton login
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String txt_email = email.getText().toString();
-                String txt_pasword = password.getText().toString();
 
-                if(TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_pasword)){
+                ComprobarCamposDeLogueo();
 
-                    Toast.makeText(LoginActivity.this, "Todos los campos deben de estar rellenos", Toast.LENGTH_SHORT).show();
-
-                } else{
-
-                    auth.signInWithEmailAndPassword(txt_email,txt_pasword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if(task.isSuccessful()){
-
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                startActivity(intent);
-                                finish();
-                            }else{
-
-                                Toast.makeText(LoginActivity.this, "Autenticacion fallida!!", Toast.LENGTH_SHORT).show();
-
-                            }
-                        }
-                    });
-
-                }
             }
         });
+    }
+
+
+    /**Nombre: ComprobarCamposLogueo
+    * Descripcion: Metodo el cual nos comprobara si los campos introducidos son correctos,
+    *               si lo fueran te introducirias en la aplicacion.
+    *               Si no lo fueran no lo haria y avisaria al usuario.
+    * */
+    private void ComprobarCamposDeLogueo() {
+
+        String txt_email = email.getText().toString();
+        String txt_pasword = password.getText().toString();
+
+        if(TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_pasword)){
+
+            Toast.makeText(LoginActivity.this, "Todos los campos deben de estar rellenos", Toast.LENGTH_SHORT).show();
+
+        } else{
+
+            auth.signInWithEmailAndPassword(txt_email,txt_pasword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if(task.isSuccessful()){
+
+                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        finish();
+                    }else{
+
+                        Toast.makeText(LoginActivity.this, "Autenticacion fallida!!", Toast.LENGTH_SHORT).show();
+
+                    }
+                }
+            });
+
+        }
+
     }
 }

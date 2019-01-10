@@ -28,14 +28,22 @@ import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
 
-    EditText username , email, password;
-    Button btn_register;
-    FirebaseAuth auth;
-    DatabaseReference reference;
+    /** Elementos de actividad*/
+    private Boolean canregister;
+    private EditText username , email, password;
+    private Button btn_register;
+
+    /** Elementos de firebase*/
+    private FirebaseAuth auth;
+    private DatabaseReference reference;
+
+
+    /** Metodo onCreate del ciclo de vida*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
 
         username = findViewById(R.id.username);
         email = findViewById(R.id.email);
@@ -47,26 +55,45 @@ public class RegisterActivity extends AppCompatActivity {
         btn_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String txt_username = username.getText().toString();
-                String txt_email = email.getText().toString();
-                String txt_password = password.getText().toString();
 
-                if(TextUtils.isEmpty(txt_password) || TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_username)){
+               canregister = ComprobarCampos();
 
-                    Toast.makeText(RegisterActivity.this, "Tienes que rellenar todos los campos", Toast.LENGTH_SHORT).show();
-                    
-                }else if(txt_password.length() < 6){
+               if(canregister) register(username.getText().toString(),email.getText().toString(),password.getText().toString());
 
-                    Toast.makeText(RegisterActivity.this, "La contraseña debe de tener mas de 6 caracteres", Toast.LENGTH_SHORT).show();
-
-                } else{
-
-                    register(txt_username,txt_email,txt_password);
-                }
             }
         });
     }
 
+    /**Nombre: ComprobarCampos
+    * Descripcion: Metodo el cual comprobara si los campos introducidos son correctos*/
+    private Boolean ComprobarCampos() {
+
+        boolean canRegister = false;
+
+        String txt_username = username.getText().toString();
+        String txt_email = email.getText().toString();
+        String txt_password = password.getText().toString();
+
+        if(TextUtils.isEmpty(txt_password) || TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_username)){
+
+            Toast.makeText(RegisterActivity.this, "Tienes que rellenar todos los campos", Toast.LENGTH_SHORT).show();
+
+        }else if(txt_password.length() < 6){
+
+            Toast.makeText(RegisterActivity.this, "La contraseña debe de tener mas de 6 caracteres", Toast.LENGTH_SHORT).show();
+
+        } else{
+
+            canRegister = true;
+        }
+
+        return canRegister;
+    }
+
+
+    /**Nombre: register
+    * Descripcion: Metodo el cual registrar al usuario en la aplicacion, y guardara su informacion
+    * en la base de datos de firebase.*/
     private void register(final String username, String email, String pasword){
 
         auth.createUserWithEmailAndPassword(email,pasword)

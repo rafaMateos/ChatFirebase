@@ -1,27 +1,13 @@
-package com.example.rafael.chatfirebase.Fragments;
+package com.example.rafael.chatfirebase;
 
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
-import com.example.rafael.chatfirebase.ActividadBuscar;
 import com.example.rafael.chatfirebase.Adapter.UserAdapter;
-import com.example.rafael.chatfirebase.MainActivity;
 import com.example.rafael.chatfirebase.Model.User;
-import com.example.rafael.chatfirebase.R;
-import com.example.rafael.chatfirebase.StartActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -33,11 +19,9 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+public class ActividadBuscar extends AppCompatActivity {
 
-public class UsersFragment extends Fragment {
 
-    RelativeLayout editText_buscar;
-    FloatingActionButton btn_search;
     private RecyclerView recyclerView;
 
     private UserAdapter userAdapter;
@@ -45,38 +29,21 @@ public class UsersFragment extends Fragment {
     private List<User> mUsers;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_users,container,false);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_actividad_buscar);
 
-        btn_search = view.findViewById(R.id.btn_buscar);
-        editText_buscar = view.findViewById(R.id.bottom);
-
-        btn_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                editText_buscar.setVisibility(View.VISIBLE);
-
-
-            }
-        });
-
-        recyclerView = view.findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         mUsers = new ArrayList<>();
 
         readUser();
-
-        return view;
     }
 
-
-
     private void readUser() {
+
 
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
@@ -84,6 +51,7 @@ public class UsersFragment extends Fragment {
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 mUsers.clear();
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()){
 
@@ -97,7 +65,7 @@ public class UsersFragment extends Fragment {
                     }
                 }
 
-                userAdapter = new UserAdapter(getContext(), mUsers);
+                userAdapter = new UserAdapter(getApplicationContext() ,mUsers);
                 recyclerView.setAdapter(userAdapter);
 
             }
@@ -105,11 +73,7 @@ public class UsersFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                //TODO Noje que hace aqui aun
-
-
             }
         });
     }
-
 }

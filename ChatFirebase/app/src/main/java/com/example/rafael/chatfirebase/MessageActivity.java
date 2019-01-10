@@ -37,20 +37,19 @@ public class MessageActivity extends AppCompatActivity {
 
     CircleImageView profile_image;
     TextView username;
-
-    FirebaseUser fuser;
-
-    DatabaseReference reference;
-
     ImageButton btn_send;
     EditText text_send;
+    RecyclerView recyclerView;
+    Intent intent;
+
+    FirebaseUser fuser;
+    DatabaseReference reference;
 
     MessageAdapter messageAdapter;
     List<Chat> mChat;
 
-    RecyclerView recyclerView;
 
-    Intent intent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,6 +100,8 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
+
+
         reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
 
         reference.addValueEventListener(new ValueEventListener() {
@@ -117,6 +118,8 @@ public class MessageActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                Toast.makeText(MessageActivity.this, "Algo salio mal \n Revisa tu conexion a Internet", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -138,6 +141,7 @@ public class MessageActivity extends AppCompatActivity {
 
         mChat = new ArrayList<>();
 
+
         reference = FirebaseDatabase.getInstance().getReference("Chats");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -145,6 +149,7 @@ public class MessageActivity extends AppCompatActivity {
                 mChat.clear();
                 for(DataSnapshot snapshot: dataSnapshot.getChildren()){
                     Chat chat = snapshot.getValue(Chat.class);
+
                     if(chat.getReciever().equals(myId) && chat.getSender().equals(userID) ||
                             chat.getReciever().equals(userID) && chat.getSender().equals(myId)){
 
