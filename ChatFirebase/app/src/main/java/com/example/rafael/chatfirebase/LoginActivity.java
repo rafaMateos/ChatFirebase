@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.rengwuxian.materialedittext.MaterialEditText;
 
 public class LoginActivity extends AppCompatActivity {
@@ -70,21 +71,40 @@ public class LoginActivity extends AppCompatActivity {
             auth.signInWithEmailAndPassword(txt_email,txt_pasword).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    if(task.isSuccessful()){
-
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                        finish();
-                    }else{
+                    if(!task.isSuccessful()){
 
                         Toast.makeText(LoginActivity.this, "Autenticacion fallida!!", Toast.LENGTH_SHORT).show();
+                    }else{
 
+                        checkIfEmailVerified();
                     }
                 }
             });
 
         }
 
+    }
+
+    private void checkIfEmailVerified()
+    {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user.isEmailVerified())
+        {
+            // user is verified, so you can finish this activity or send user to activity which you want.
+            finish();
+            Toast.makeText(LoginActivity.this, "Successfully logged in", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+
+            startActivity(intent);
+            finish();
+
+        }
+        else
+        {
+
+            Toast.makeText(this, "Verifica tu Email, revisa tu bandeja de entrada", Toast.LENGTH_SHORT).show();
+
+        }
     }
 }

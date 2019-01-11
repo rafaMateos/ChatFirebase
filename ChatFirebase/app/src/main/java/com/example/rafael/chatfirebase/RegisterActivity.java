@@ -94,7 +94,7 @@ public class RegisterActivity extends AppCompatActivity {
     /**Nombre: register
     * Descripcion: Metodo el cual registrar al usuario en la aplicacion, y guardara su informacion
     * en la base de datos de firebase.*/
-    private void register(final String username, String email, String pasword){
+    private void register(final String username, final String email, String pasword){
 
         auth.createUserWithEmailAndPassword(email,pasword)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -107,26 +107,39 @@ public class RegisterActivity extends AppCompatActivity {
 
                             reference = FirebaseDatabase.getInstance().getReference("Users").child(userId);
 
-
-                            HashMap<String,String> hashMap = new HashMap<>();
+                            final HashMap<String,String> hashMap = new HashMap<>();
                             hashMap.put("id",userId);
                             hashMap.put("username",username);
                             hashMap.put("imageUrl","default");
 
-                            reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
 
                                     if(task.isSuccessful()){
 
-                                        Intent intent = new Intent(RegisterActivity.this,MainActivity.class);
-                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                        startActivity(intent);
-                                        finish();
+                                        reference.setValue(hashMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
 
+                                                if(task.isSuccessful()){
+
+                                                    Toast.makeText(RegisterActivity.this, "Revisa el email para verificar: " + email, Toast.LENGTH_SHORT).show();
+                                                   Intent intent = new Intent(getApplicationContext(),StartActivity.class);
+                                                   startActivity(intent);
+                                                }
+                                            }
+                                        });
+
+                                    }else{
+
+                                        Toast.makeText(RegisterActivity.this, "Compruba tu conex a internet", Toast.LENGTH_SHORT).show();
                                     }
+
                                 }
                             });
+
+
                         }else{
 
                             Toast.makeText(RegisterActivity.this,"No pudiste registrarte",Toast.LENGTH_SHORT).show();

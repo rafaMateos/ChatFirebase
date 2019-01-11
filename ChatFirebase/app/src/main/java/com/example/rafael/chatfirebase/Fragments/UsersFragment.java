@@ -6,12 +6,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -36,8 +38,9 @@ import java.util.List;
 
 public class UsersFragment extends Fragment {
 
-    RelativeLayout editText_buscar;
+    EditText editText_buscar;
     FloatingActionButton btn_search;
+
     private RecyclerView recyclerView;
 
     private UserAdapter userAdapter;
@@ -50,16 +53,14 @@ public class UsersFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_users,container,false);
 
+
         btn_search = view.findViewById(R.id.btn_buscar);
         editText_buscar = view.findViewById(R.id.bottom);
 
         btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 editText_buscar.setVisibility(View.VISIBLE);
-
-
             }
         });
 
@@ -73,6 +74,7 @@ public class UsersFragment extends Fragment {
 
         return view;
     }
+
 
 
 

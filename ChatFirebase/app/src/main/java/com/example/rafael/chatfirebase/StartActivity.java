@@ -21,7 +21,6 @@ public class StartActivity extends AppCompatActivity {
     /** Elementos firebase*/
     FirebaseUser firebaseUser;
 
-
     /**
     Descripcion funcionamientos:
 
@@ -37,7 +36,7 @@ public class StartActivity extends AppCompatActivity {
 
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        if(firebaseUser != null){
+        if(firebaseUser != null && firebaseUser.isEmailVerified()){
 
             Intent intent = new Intent(StartActivity.this,MainActivity.class);
             startActivity(intent);
