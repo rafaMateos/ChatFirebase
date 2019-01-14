@@ -85,6 +85,11 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+
+    /**
+     * Nombre:checkIfEmailVerified
+     * Descripcion: Metodo el cual te verificara si el Email del usuario que se va a logear
+     *              esta ya verificado a traves del correo de confirmacion correspondiente*/
     private void checkIfEmailVerified()
     {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
