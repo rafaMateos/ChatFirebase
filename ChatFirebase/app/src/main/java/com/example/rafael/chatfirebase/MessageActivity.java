@@ -59,7 +59,11 @@ public class MessageActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+
+
             @Override
             public void onClick(View v) {
                 finish();
@@ -102,6 +106,7 @@ public class MessageActivity extends AppCompatActivity {
 
 
 
+
         reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
 
         reference.addValueEventListener(new ValueEventListener() {
@@ -120,7 +125,6 @@ public class MessageActivity extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
                 Toast.makeText(MessageActivity.this, "Algo salio mal \n Revisa tu conexion a Internet", Toast.LENGTH_SHORT).show();
-
             }
         });
     }

@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -101,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+
         getMenuInflater().inflate(R.menu.menu,menu);
         return true;
     }

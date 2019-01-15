@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.rafael.chatfirebase.Adapter.UserAdapter;
 import com.example.rafael.chatfirebase.Model.User;
@@ -36,6 +37,7 @@ public class UsersFragment extends Fragment {
     private UserAdapter userAdapter;
 
     private List<User> mUsers;
+    int times = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,16 +45,27 @@ public class UsersFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_users,container,false);
 
-
         btn_search = view.findViewById(R.id.btn_buscar);
         editText_buscar = view.findViewById(R.id.bottom);
 
         btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editText_buscar.setVisibility(View.VISIBLE);
+
+                if(times == 0){
+                    editText_buscar.setVisibility(View.VISIBLE);
+                    times++;
+
+                }else{
+                    editText_buscar.setVisibility(View.GONE);
+                    times--;
+
+                }
+
             }
         });
+
+
 
         recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -70,6 +83,7 @@ public class UsersFragment extends Fragment {
 
     private void readUser() {
 
+
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
 
@@ -85,7 +99,10 @@ public class UsersFragment extends Fragment {
                     assert firebaseUser != null;
                     if(!user.getId().equals(firebaseUser.getUid())){
 
-                        mUsers.add(user);
+                        mUsers.add(user);//Añadimos los usuarios que sean distintos al usuario actual.
+                        //Debemos tener en cuenta que para buscar tenemos que estar cambiando el adaptador del recycler view
+                        //constantemente para asi poder actualizar cada vez que el usuarios introduzca alguna palabra,
+                        //en el autoCompleteTextview
                     }
                 }
 
@@ -97,7 +114,7 @@ public class UsersFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                //TODO Noje que hace aqui aun
+                Toast.makeText(getContext(), "Contrata movistar please", Toast.LENGTH_SHORT).show();
 
 
             }
