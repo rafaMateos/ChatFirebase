@@ -6,9 +6,12 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -27,9 +30,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class UsersFragment extends Fragment {
+public class UsersFragment extends Fragment implements TextWatcher {
 
-    EditText editText_buscar;
+    AutoCompleteTextView editText_buscar;
     FloatingActionButton btn_search;
 
     private RecyclerView recyclerView;
@@ -39,6 +42,7 @@ public class UsersFragment extends Fragment {
     private List<User> mUsers;
     int times = 0;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,6 +51,7 @@ public class UsersFragment extends Fragment {
 
         btn_search = view.findViewById(R.id.btn_buscar);
         editText_buscar = view.findViewById(R.id.bottom);
+        editText_buscar.addTextChangedListener(this);
 
         btn_search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,10 +84,7 @@ public class UsersFragment extends Fragment {
     }
 
 
-
-
     private void readUser() {
-
 
         final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
@@ -109,6 +111,7 @@ public class UsersFragment extends Fragment {
                 userAdapter = new UserAdapter(getContext(), mUsers);
                 recyclerView.setAdapter(userAdapter);
 
+
             }
 
             @Override
@@ -121,4 +124,61 @@ public class UsersFragment extends Fragment {
         });
     }
 
+    private void readUserSearch() {
+
+        final FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
+
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mUsers.clear();
+                for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+
+                    User user = snapshot.getValue(User.class);
+
+                    assert user != null;
+                    assert firebaseUser != null;
+                    if(user.getUsername().contains(editText_buscar.getText().toString())){
+
+                        mUsers.add(user);//Añadimos los usuarios que sean distintos al usuario actual.
+                        //Debemos tener en cuenta que para buscar tenemos que estar cambiando el adaptador del recycler view
+                        //constantemente para asi poder actualizar cada vez que el usuarios introduzca alguna palabra,
+                        //en el autoCompleteTextview
+                    }
+                }
+
+                userAdapter = new UserAdapter(getContext(), mUsers);
+                recyclerView.setAdapter(userAdapter);
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                Toast.makeText(getContext(), "Contrata movistar please", Toast.LENGTH_SHORT).show();
+
+
+            }
+        });
+    }
+
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+        readUserSearch();
+        editText_buscar.getText();
+
+    }
 }
