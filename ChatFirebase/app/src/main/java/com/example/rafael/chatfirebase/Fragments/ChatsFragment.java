@@ -38,6 +38,7 @@ public class ChatsFragment extends Fragment {
 
     private List<Chat> userList;
 
+    private List<Chat> listaFinal;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,7 +63,8 @@ public class ChatsFragment extends Fragment {
                 userList.clear();
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
 
-
+                    Chat chat = snapshot.getValue(Chat.class);
+                    userList.add(chat);
 
 
 
@@ -85,6 +87,45 @@ public class ChatsFragment extends Fragment {
     }
 
     private void obtenerMisChats() {
+
+        mUsers = new ArrayList<>();
+        listaFinal = new ArrayList<>();
+
+        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mUsers.clear();
+
+                fuser = FirebaseAuth.getInstance().getCurrentUser();
+                /*
+               for(int i = 0; i<userList.size(); i++){
+
+                   if(userList.get(i).getSender().equals(fuser.getUid())){
+
+                       listaFinal.add();
+
+                   }
+
+
+               }
+               */
+
+                /*
+
+               useradapter = new UserAdapter(getContext(),);
+               recyclerView.setAdapter(useradapter);
+               */
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
 
 
