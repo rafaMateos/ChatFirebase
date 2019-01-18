@@ -147,6 +147,8 @@ public class MainActivity extends AppCompatActivity {
             return fragments.size();
         }
 
+
+
         public void addFragment(Fragment fragment, String Title){
 
             fragments.add(fragment);
