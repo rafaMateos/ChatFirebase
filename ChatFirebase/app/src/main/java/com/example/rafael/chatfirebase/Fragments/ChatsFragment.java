@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.example.rafael.chatfirebase.Adapter.UserAdapter;
 import com.example.rafael.chatfirebase.Model.Chat;
+import com.example.rafael.chatfirebase.Model.ChatList;
 import com.example.rafael.chatfirebase.Model.User;
 import com.example.rafael.chatfirebase.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,7 +36,7 @@ public class ChatsFragment extends Fragment {
     FirebaseUser fuser;
     DatabaseReference databaseReference;
 
-    private List<String> userList;
+    private List<Chat> userList;
 
 
     @Override
@@ -54,32 +55,40 @@ public class ChatsFragment extends Fragment {
 
        userList = new ArrayList<>();
 
-       databaseReference = FirebaseDatabase.getInstance().getReference("Chats");
+       databaseReference = FirebaseDatabase.getInstance().getReference("Chats");//.child(fuser.getUid());
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                userList.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
 
-        /**
-         * Tienes que mirar porque te da un nullPointer si el array de usarios si tiene
-         * los usuarios que estan registrado en la aplicacion*/
 
-        /**
-         * Mirar tambn la posibilidad de implementar si el usuario esta conectado en ese momento*/
 
-        /**
-         * Comprobar si el mensage esta leido o no esta leido por el usuario*/
 
-        /**
-         *
-         * Implementar otra parte del menu ViewPager para que el usuario pueda ver si propio perfil, y realizar
-         * acciones sobre el
-         * */
 
-        /**
-         * Poder cambiar la imagen de perfil del usuario, ya que esta implementado la manera de comprobar
-         * si el usuario tiene una imagen ya cambiada*/
+                }
+
+                obtenerMisChats();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
 
 
        return view;
     }
 
+    private void obtenerMisChats() {
+
+
+
+    }
 
 
 }

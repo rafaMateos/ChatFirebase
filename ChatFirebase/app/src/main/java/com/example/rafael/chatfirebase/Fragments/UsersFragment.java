@@ -49,6 +49,8 @@ public class UsersFragment extends Fragment implements TextWatcher {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_users,container,false);
 
+
+
         btn_search = view.findViewById(R.id.btn_buscar);
         editText_buscar = view.findViewById(R.id.bottom);
         editText_buscar.addTextChangedListener(this);
