@@ -56,7 +56,25 @@ public class ChatsFragment extends Fragment {
 
        databaseReference = FirebaseDatabase.getInstance().getReference("Chats");
 
+        /**
+         * Tienes que mirar porque te da un nullPointer si el array de usarios si tiene
+         * los usuarios que estan registrado en la aplicacion*/
 
+        /**
+         * Mirar tambn la posibilidad de implementar si el usuario esta conectado en ese momento*/
+
+        /**
+         * Comprobar si el mensage esta leido o no esta leido por el usuario*/
+
+        /**
+         *
+         * Implementar otra parte del menu ViewPager para que el usuario pueda ver si propio perfil, y realizar
+         * acciones sobre el
+         * */
+
+        /**
+         * Poder cambiar la imagen de perfil del usuario, ya que esta implementado la manera de comprobar
+         * si el usuario tiene una imagen ya cambiada*/
 
 
        return view;
