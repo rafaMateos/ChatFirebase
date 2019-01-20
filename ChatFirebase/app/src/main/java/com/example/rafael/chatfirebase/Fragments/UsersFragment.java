@@ -142,11 +142,11 @@ public class UsersFragment extends Fragment implements TextWatcher {
                     assert user != null;
                     assert firebaseUser != null;
                     if(user.getUsername().contains(editText_buscar.getText().toString())){
+                        if(!firebaseUser.getUid().equals(user.getId())){
 
-                        mUsers.add(user);//Añadimos los usuarios que sean distintos al usuario actual.
-                        //Debemos tener en cuenta que para buscar tenemos que estar cambiando el adaptador del recycler view
-                        //constantemente para asi poder actualizar cada vez que el usuarios introduzca alguna palabra,
-                        //en el autoCompleteTextview
+                            mUsers.add(user);
+                        }
+
                     }
                 }
 

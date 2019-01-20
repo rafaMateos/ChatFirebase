@@ -47,6 +47,7 @@ public class MessageActivity extends AppCompatActivity {
 
     MessageAdapter messageAdapter;
     List<Chat> mChat;
+     String userid;
 
 
 
@@ -83,7 +84,7 @@ public class MessageActivity extends AppCompatActivity {
         text_send = findViewById(R.id.text_send);
 
         intent = getIntent();
-        final String userid = intent.getStringExtra("userid");
+        userid = intent.getStringExtra("userid");
         fuser = FirebaseAuth.getInstance().getCurrentUser();
 
 
@@ -138,6 +139,22 @@ public class MessageActivity extends AppCompatActivity {
         hashMap.put("message",message);
 
         reference.child("Chats").push().setValue(hashMap);
+
+        final DatabaseReference chatRef = FirebaseDatabase.getInstance().getReference("Chatlist").child(fuser.getUid()).child(userid);
+
+        chatRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(!dataSnapshot.exists()){
+                    chatRef.child("id").setValue(userid);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
     }
 

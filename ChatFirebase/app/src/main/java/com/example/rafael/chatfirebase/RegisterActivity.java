@@ -24,6 +24,7 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 
 import org.w3c.dom.Text;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -36,6 +37,12 @@ public class RegisterActivity extends AppCompatActivity {
     /** Elementos de firebase*/
     private FirebaseAuth auth;
     private DatabaseReference reference;
+
+    private int contMayusculas;
+    private int contMinusculas;
+    private int contNumeros;
+    private boolean esVacio;
+    private boolean contraMenorSeis;
 
 
     /** Metodo onCreate del ciclo de vida*/
@@ -69,22 +76,51 @@ public class RegisterActivity extends AppCompatActivity {
     private Boolean ComprobarCampos() {
 
         boolean canRegister = false;
-
+        esVacio = false;
+        contraMenorSeis = false;
         String txt_username = username.getText().toString();
         String txt_email = email.getText().toString();
         String txt_password = password.getText().toString();
 
+
+
+        char[] charArray = txt_password.toCharArray();
+
+        for (int i = 0;  i< charArray.length; i++)
+        {
+
+            if(Character.isUpperCase(charArray[i])){
+
+                contMayusculas++;
+            }else{
+
+                contMinusculas++;
+            }
+
+             if(Character.isDigit(charArray[i])){
+
+                contNumeros++;
+            }
+
+        }
+
         if(TextUtils.isEmpty(txt_password) || TextUtils.isEmpty(txt_email) || TextUtils.isEmpty(txt_username)){
 
             Toast.makeText(RegisterActivity.this, "Tienes que rellenar todos los campos", Toast.LENGTH_SHORT).show();
+            esVacio = true;
 
-        }else if(txt_password.length() < 6){
+        }else if(txt_password.length() < 6) {
 
             Toast.makeText(RegisterActivity.this, "La contraseña debe de tener mas de 6 caracteres", Toast.LENGTH_SHORT).show();
+            contraMenorSeis = true;
 
-        } else{
+        }
+        else if (!contraMenorSeis && !esVacio && contNumeros >= 1 && contMinusculas >= 1 && contMayusculas >= 1){
 
             canRegister = true;
+        }else {
+
+            Toast.makeText(this, "La contraseña debe contener mayusculas, minusculas y numeros", Toast.LENGTH_SHORT).show();
         }
 
         return canRegister;

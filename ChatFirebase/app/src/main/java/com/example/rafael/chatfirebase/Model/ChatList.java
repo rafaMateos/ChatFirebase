@@ -2,20 +2,20 @@ package com.example.rafael.chatfirebase.Model;
 
 public class ChatList {
 
-    private int id;
+    private String id;
 
-    public ChatList(int id) {
+    public ChatList(String id) {
         this.id = id;
     }
 
     public ChatList() {
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 }
