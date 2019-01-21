@@ -17,6 +17,7 @@ import com.example.rafael.chatfirebase.Adapter.UserAdapter;
 import com.example.rafael.chatfirebase.Model.Chat;
 import com.example.rafael.chatfirebase.Model.ChatList;
 import com.example.rafael.chatfirebase.Model.User;
+import com.example.rafael.chatfirebase.Notifications.Token;
 import com.example.rafael.chatfirebase.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -25,6 +26,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +85,16 @@ public class ChatsFragment extends Fragment {
             }
         });
 
+        updateToken(FirebaseInstanceId.getInstance().getToken());
         return view;
+    }
+
+    private void updateToken(String token){
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Tokens");
+        Token token1 = new Token(token);
+        reference.child(fuser.getUid()).setValue(token1);
+
     }
 
     private void chatList() {
