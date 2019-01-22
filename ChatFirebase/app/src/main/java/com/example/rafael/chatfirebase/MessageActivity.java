@@ -206,7 +206,7 @@ public class MessageActivity extends AppCompatActivity {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()){
 
                     Token token = snapshot.getValue(Token.class);
-                    Data data = new Data(fuser.getUid(),R.mipmap.ic_launcher,username+": "+msg,"Nuevo mensage",userid);
+                    Data data = new Data(fuser.getUid(),R.mipmap.ic_launcher,username, username + ": " + msg ,userid);
 
                     Sender sender = new Sender(data,token.getToken());
 
@@ -220,11 +220,8 @@ public class MessageActivity extends AppCompatActivity {
 
                                             Toast.makeText(MessageActivity.this, "No pude hacer nada..", Toast.LENGTH_SHORT).show();
                                         }
-
                                     }
-
                                 }
-
                                 @Override
                                 public void onFailure(Call<MyResponse> call, Throwable t) {
 
@@ -246,7 +243,6 @@ public class MessageActivity extends AppCompatActivity {
 
         mChat = new ArrayList<>();
 
-
         reference = FirebaseDatabase.getInstance().getReference("Chats");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -260,6 +256,9 @@ public class MessageActivity extends AppCompatActivity {
 
                         mChat.add(chat);
                     }
+
+
+
 
                 messageAdapter = new MessageAdapter(MessageActivity.this,mChat,imageurl);
                 recyclerView.setAdapter(messageAdapter);

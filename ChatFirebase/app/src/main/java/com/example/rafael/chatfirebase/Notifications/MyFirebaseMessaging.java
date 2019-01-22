@@ -22,6 +22,7 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
+
         super.onMessageReceived(remoteMessage);
 
         String sented = remoteMessage.getData().get("sented");
@@ -61,7 +62,7 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
         Uri defaultSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
         OreoOrMoreNotification oreoOrMoreNotification = new OreoOrMoreNotification(this);
-        Notification.Builder builder = oreoOrMoreNotification.getOreoNotification(title,body,pendingIntent,defaultSound,icon);
+        Notification builder = oreoOrMoreNotification.getOreoNotification(title,body,pendingIntent,defaultSound,icon);
 
         int i = 0;
 
@@ -70,9 +71,7 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
             i = j;
         }
 
-        oreoOrMoreNotification.getManager().notify((int)System.currentTimeMillis()/1000,builder.build());
-
-
+        oreoOrMoreNotification.getManager().notify(i,builder);
     }
 
     private void sendNotification(RemoteMessage remoteMessage) {
