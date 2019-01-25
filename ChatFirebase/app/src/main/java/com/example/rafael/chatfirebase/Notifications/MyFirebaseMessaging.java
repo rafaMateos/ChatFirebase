@@ -39,9 +39,9 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
                 sendNotification(remoteMessage);
 
             }
-
         }
     }
+
 
     private void sendOreoNotify(RemoteMessage remoteMessage) {
 
@@ -82,7 +82,7 @@ public class MyFirebaseMessaging extends FirebaseMessagingService {
         String body = remoteMessage.getData().get("body");
 
         RemoteMessage.Notification notification = remoteMessage.getNotification();
-        int j = Integer.parseInt(user.replaceAll("[\\D]",""));
+        int j = 0;
         Intent intent = new Intent(this,MessageActivity.class);
             Bundle bundle = new Bundle();
             bundle.putString("userid",user);

@@ -44,11 +44,12 @@ import retrofit2.Response;
 
 public class MessageActivity extends AppCompatActivity {
 
-    CircleImageView profile_image;
-    TextView username;
-    ImageButton btn_send;
-    EditText text_send;
-    RecyclerView recyclerView;
+    private CircleImageView profile_image;
+    private TextView username;
+    private ImageButton btn_send;
+    private EditText text_send;
+    private RecyclerView recyclerView;
+
     Intent intent;
 
     FirebaseUser fuser;
@@ -175,6 +176,7 @@ public class MessageActivity extends AppCompatActivity {
         final String msg = message;
 
         reference = FirebaseDatabase.getInstance().getReference("Users").child(fuser.getUid());
+
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

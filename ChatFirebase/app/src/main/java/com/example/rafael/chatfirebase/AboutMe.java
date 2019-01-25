@@ -11,5 +11,7 @@ public class AboutMe extends AppCompatActivity {
         setContentView(R.layout.activity_about_me);
 
 
+
+
     }
 }

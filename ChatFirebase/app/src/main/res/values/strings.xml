@@ -3,5 +3,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="InfoAboutMe"></string>
+    <string name="InfoAboutMe"> Hola , me llamo Rafael Mateos y soy un estudiante del Ciclo formativo de grado superior
+            de Desarrollo de aplicaciones multiplataforma.
+            Realize esta practica para poder practicas, Fragments,ViewModel,Room,Firebase..</string>
 </resources>

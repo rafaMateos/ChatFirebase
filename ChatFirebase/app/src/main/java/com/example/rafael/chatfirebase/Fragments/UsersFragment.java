@@ -141,7 +141,9 @@ public class UsersFragment extends Fragment implements TextWatcher {
 
                     assert user != null;
                     assert firebaseUser != null;
-                    if(user.getUsername().contains(editText_buscar.getText().toString())){
+                    String downNameUser = user.getUsername().toLowerCase();
+                    String downEditText = editText_buscar.getText().toString().toLowerCase();
+                    if(downNameUser.contains(downEditText.toString())){
                         if(!firebaseUser.getUid().equals(user.getId())){
 
                             mUsers.add(user);

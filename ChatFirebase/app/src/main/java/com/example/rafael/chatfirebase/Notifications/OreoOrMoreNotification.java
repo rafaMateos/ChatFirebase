@@ -27,14 +27,10 @@ public class OreoOrMoreNotification extends ContextWrapper {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
 
             createChannel();
-
         }
     }
-
     @TargetApi(Build.VERSION_CODES.O)
     private void createChannel() {
-
-
 
         NotificationChannel channel = new NotificationChannel(ChannelID,ChannelNAME,NotificationManager.IMPORTANCE_DEFAULT);
         channel.enableLights(false);
