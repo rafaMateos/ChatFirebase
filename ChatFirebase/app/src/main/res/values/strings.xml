@@ -6,4 +6,6 @@
     <string name="InfoAboutMe"> Hola , me llamo Rafael Mateos y soy un estudiante del Ciclo formativo de grado superior
             de Desarrollo de aplicaciones multiplataforma.
             Realize esta practica para poder practicas, Fragments,ViewModel,Room,Firebase..</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
 </resources>

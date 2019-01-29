@@ -1,5 +1,6 @@
 package com.example.rafael.chatfirebase;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 
 
 import com.bumptech.glide.Glide;
+import com.example.rafael.chatfirebase.Adapter.Chats;
 import com.example.rafael.chatfirebase.Adapter.MessageAdapter;
 import com.example.rafael.chatfirebase.Model.Chat;
 import com.example.rafael.chatfirebase.Model.User;
@@ -57,12 +59,11 @@ public class MessageActivity extends AppCompatActivity {
 
     MessageAdapter messageAdapter;
     List<Chat> mChat;
-     String userid;
+    public String userid;
 
-     ServiceApi serviceApi;
+    ServiceApi serviceApi;
 
-     boolean notify = false;
-
+    boolean notify = false;
 
 
     @Override
@@ -104,16 +105,15 @@ public class MessageActivity extends AppCompatActivity {
         fuser = FirebaseAuth.getInstance().getCurrentUser();
 
 
-
         btn_send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 notify = true;
                 String msg = text_send.getText().toString();
-                if(!TextUtils.isEmpty(msg)){
+                if (!TextUtils.isEmpty(msg)) {
 
-                    sendMessage(fuser.getUid(),userid,msg);
-                }else{
+                    sendMessage(fuser.getUid(), userid, msg);
+                } else {
 
                     Toast.makeText(MessageActivity.this, "No puedes enviar mensages vacios", Toast.LENGTH_SHORT).show();
                 }
@@ -123,8 +123,6 @@ public class MessageActivity extends AppCompatActivity {
         });
 
 
-
-
         reference = FirebaseDatabase.getInstance().getReference("Users").child(userid);
 
         reference.addValueEventListener(new ValueEventListener() {
@@ -132,11 +130,12 @@ public class MessageActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
                 username.setText(user.getUsername());
-                if(user.getImageUrl().equals("default")) profile_image.setImageResource(R.mipmap.ic_launcher);
+                if (user.getImageUrl().equals("default"))
+                    profile_image.setImageResource(R.mipmap.ic_launcher);
 
                 else Glide.with(MessageActivity.this).load(user.getImageUrl()).into(profile_image);
 
-                readMessage(fuser.getUid(),userid,user.getImageUrl());
+                readMessage(fuser.getUid(), userid, user.getImageUrl());
             }
 
             @Override
@@ -147,13 +146,13 @@ public class MessageActivity extends AppCompatActivity {
         });
     }
 
-    private void sendMessage(String sender, final String reciever, String message){
+    private void sendMessage(String sender, final String reciever, String message) {
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference();
-        HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("sender",sender);
-        hashMap.put("reciever",reciever);
-        hashMap.put("message",message);
+        HashMap<String, String> hashMap = new HashMap<>();
+        hashMap.put("sender", sender);
+        hashMap.put("reciever", reciever);
+        hashMap.put("message", message);
 
         reference.child("Chats").push().setValue(hashMap);
 
@@ -162,7 +161,7 @@ public class MessageActivity extends AppCompatActivity {
         chatRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(!dataSnapshot.exists()){
+                if (!dataSnapshot.exists()) {
                     chatRef.child("id").setValue(userid);
                 }
             }
@@ -181,9 +180,9 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.getValue(User.class);
-                if(notify){
+                if (notify) {
 
-                    sendNotification(reciever,user.getUsername(),msg);
+                    sendNotification(reciever, user.getUsername(), msg);
                 }
 
                 notify = false;
@@ -205,25 +204,26 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
 
                     Token token = snapshot.getValue(Token.class);
-                    Data data = new Data(fuser.getUid(),R.mipmap.ic_launcher,username, username + ": " + msg ,userid);
+                    Data data = new Data(fuser.getUid(), R.mipmap.ic_launcher, username, username + ": " + msg, userid);
 
-                    Sender sender = new Sender(data,token.getToken());
+                    Sender sender = new Sender(data, token.getToken());
 
                     serviceApi.sendNotification(sender)
                             .enqueue(new Callback<MyResponse>() {
                                 @Override
                                 public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
 
-                                    if(response.code() == 200){
-                                        if(response.body().succes == 1){
+                                    if (response.code() == 200) {
+                                        if (response.body().succes == 1) {
 
                                             Toast.makeText(MessageActivity.this, "No pude hacer nada..", Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                 }
+
                                 @Override
                                 public void onFailure(Call<MyResponse> call, Throwable t) {
 
@@ -241,7 +241,7 @@ public class MessageActivity extends AppCompatActivity {
     }
 
 
-    private void readMessage(final String myId, final String userID, final String imageurl){
+    private void readMessage(final String myId, final String userID, final String imageurl) {
 
         mChat = new ArrayList<>();
 
@@ -250,20 +250,18 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 mChat.clear();
-                for(DataSnapshot snapshot: dataSnapshot.getChildren()){
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     Chat chat = snapshot.getValue(Chat.class);
 
-                    if(chat.getReciever().equals(myId) && chat.getSender().equals(userID) ||
-                            chat.getReciever().equals(userID) && chat.getSender().equals(myId)){
+                    if (chat.getReciever().equals(myId) && chat.getSender().equals(userID) ||
+                            chat.getReciever().equals(userID) && chat.getSender().equals(myId)) {
 
                         mChat.add(chat);
                     }
 
 
-
-
-                messageAdapter = new MessageAdapter(MessageActivity.this,mChat,imageurl);
-                recyclerView.setAdapter(messageAdapter);
+                    messageAdapter = new MessageAdapter(MessageActivity.this, mChat, imageurl);
+                    recyclerView.setAdapter(messageAdapter);
 
                 }
             }
@@ -274,5 +272,11 @@ public class MessageActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void updateWorkoutsWidget(Context context) {
+        Intent intent = new Intent(context, Chats.class);
+
+        intent.putExtra(userid,true);
     }
 }
