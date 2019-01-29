@@ -40,12 +40,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         editor.putString("ganador",listString);
         editor.commit();
 
+
         numeroGanador = findViewById(R.id.NumeroGanador);
         dineroGanado = findViewById(R.id.DineroGanado);
         comprobar = findViewById(R.id.comprobar);
         numeroIntro = findViewById(R.id.editText2);
         comprobar.setOnClickListener(this);
     }
+
 
 
     public void volverAJugar(){

@@ -19,8 +19,6 @@ public class Chats extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
-
     }
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
