@@ -14,10 +14,13 @@ import com.example.rmateos.preguntadosrafa.Models.Question;
 import com.example.rmateos.preguntadosrafa.ViewModels.ViewModel;
 
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
 
+    Repository gest = new Repository();
     ViewModel mViewModel;
+    Question question;
     EditText questionIntro;
     ArrayList<Long> ret =  new ArrayList<>();
 
@@ -42,19 +45,29 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void ClickGuardar(View view){
+    public void ClickGuardar(final View view){
+
+
 
         String anwers = questionIntro.getText().toString();
-        Question question =  new Question();
+         question =  new Question();
 
         question.setQuestion_body(questionIntro.getText().toString());
         question.setId(0);
         question.setAnwers(anwers);
 
 
-        Repository gest = new Repository();
-        gest.InsertQuest(question,view.getContext());
+        Executors.newSingleThreadScheduledExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                gest.InsertQuest(question,view.getContext());
+            }
+        });
 
+
+
+
+        Question[] ret =gest.select(view.getContext());
 
     }
 }
