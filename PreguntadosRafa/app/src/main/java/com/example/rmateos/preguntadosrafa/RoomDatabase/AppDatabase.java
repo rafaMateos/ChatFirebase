@@ -5,13 +5,14 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-import com.example.rmateos.preguntadosrafa.InterfaceDAO.MyDaoQuestion;
-import com.example.rmateos.preguntadosrafa.Models.Question;
+import com.example.rmateos.preguntadosrafa.InterfaceDAO.MyDaoEmails;
+import com.example.rmateos.preguntadosrafa.Models.Email;
 
-@Database(entities = {Question.class}, version = 1, exportSchema = false)
+
+@Database(entities = {Email.class}, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
-    public abstract MyDaoQuestion getQuestionDAO();
+    public abstract MyDaoEmails getQuestionDAO();
 
     private static AppDatabase INSTANCE_DATABASE;
 
@@ -23,7 +24,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 if(INSTANCE_DATABASE ==  null){
 
                     INSTANCE_DATABASE = Room.databaseBuilder(context.getApplicationContext(),
-                            AppDatabase.class,"QuestionDatabase.db").allowMainThreadQueries().build();
+                            AppDatabase.class,"EmailDatabase.db").allowMainThreadQueries().build();
                 }
 
             }

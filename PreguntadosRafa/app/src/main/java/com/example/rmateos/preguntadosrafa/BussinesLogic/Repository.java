@@ -2,22 +2,23 @@ package com.example.rmateos.preguntadosrafa.BussinesLogic;
 
 import android.content.Context;
 
-import com.example.rmateos.preguntadosrafa.Models.Question;
+import com.example.rmateos.preguntadosrafa.Models.Email;
+
 import com.example.rmateos.preguntadosrafa.RoomDatabase.AppDatabase;
 
 import java.util.List;
 
 public class Repository {
 
-    public void InsertQuest(Question question, Context context){
+    public void InsertQuest(Email email, Context context){
 
-         AppDatabase.getInstanceDatabase(context).getQuestionDAO().insertQuestion(question);
+         AppDatabase.getInstanceDatabase(context).getQuestionDAO().insertEmail(email);
 
     }
 
-    public Question[] select ( Context context){
+    public Email[] selectEmail ( Context context){
 
-        return AppDatabase.getInstanceDatabase(context).getQuestionDAO().getListQuestion();
+        return AppDatabase.getInstanceDatabase(context).getQuestionDAO().getListEmail();
 
     }
 
