@@ -4,23 +4,21 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.example.rmateos.preguntadosrafa.R;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link PrincipalFragment.OnFragmentInteractionListener} interface
+ * {@link EditarFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link PrincipalFragment#newInstance} factory method to
+ * Use the {@link EditarFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PrincipalFragment extends Fragment {
+public class EditarFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -32,7 +30,7 @@ public class PrincipalFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public PrincipalFragment() {
+    public EditarFragment() {
         // Required empty public constructor
     }
 
@@ -42,11 +40,11 @@ public class PrincipalFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment PrincipalFragment.
+     * @return A new instance of fragment EditarFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PrincipalFragment newInstance(String param1, String param2) {
-        PrincipalFragment fragment = new PrincipalFragment();
+    public static EditarFragment newInstance(String param1, String param2) {
+        EditarFragment fragment = new EditarFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -66,48 +64,8 @@ public class PrincipalFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View v =  inflater.inflate(R.layout.fragment_principal, container, false);
-
-        Button b = v.findViewById(R.id.Btn_Insertar);
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.contenedor, new InsertarEmails());
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
-
-
-        Button b1 = v.findViewById(R.id.bnt_ver);
-        b1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.contenedor, new SeeAllEmails());
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
-
-
-        Button b2 = v.findViewById(R.id.bnt_Editar);
-        b2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.contenedor, new EditarFragment());
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
-
-        return v;
+        // Inflate the layout for this fragment
+        return inflater.inflate(R.layout.fragment_editar, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -116,7 +74,6 @@ public class PrincipalFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
 
     /*
     @Override

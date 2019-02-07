@@ -1,5 +1,6 @@
 package com.example.rmateos.preguntadosrafa.InterfaceDAO;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -17,16 +18,16 @@ public interface MyDaoEmails {
 
     /*Method to insert a single email*/
     @Insert()
-    public void insertEmail(Email email);
+     void insertEmail(Email email);
 
     @Delete()
-    public void deleteEmail(Email email);
+     void deleteEmail(Email email);
 
     @Update()
-    public void updateEmail(Email email);
+     void updateEmail(Email email);
 
     /*Interface for select all the emails in DB*/
     @Query("Select * from Email")
-    public Email[] getListEmail();
+     LiveData<List<Email>> getListEmail();
 
 }

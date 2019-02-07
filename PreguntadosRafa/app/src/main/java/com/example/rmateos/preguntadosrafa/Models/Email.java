@@ -7,6 +7,9 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity
 public class Email {
 
+    public Email() {
+    }
+
     @PrimaryKey(autoGenerate=true)
     public int id;
 
@@ -17,15 +20,9 @@ public class Email {
     @ColumnInfo(name = "contenido")
     public String contenido;
 
-    public Email(int id, String destinatarioEmail, String titulo, String contenido) {
-        this.id = id;
-        this.destinatarioEmail = destinatarioEmail;
-        this.titulo = titulo;
-        this.contenido = contenido;
-    }
 
-    public Email() {
-    }
+
+
 
     public int getId() {
         return id;

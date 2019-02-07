@@ -1,30 +1,40 @@
 package com.example.rmateos.preguntadosrafa.Fragments;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.example.rmateos.preguntadosrafa.Models.Email;
 import com.example.rmateos.preguntadosrafa.R;
+import com.example.rmateos.preguntadosrafa.ViewModels.ViewModel;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link PrincipalFragment.OnFragmentInteractionListener} interface
+ * {@link SeeAllEmails.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link PrincipalFragment#newInstance} factory method to
+ * Use the {@link SeeAllEmails#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PrincipalFragment extends Fragment {
+public class SeeAllEmails extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    public ViewModel viewModel;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -32,7 +42,7 @@ public class PrincipalFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public PrincipalFragment() {
+    public SeeAllEmails() {
         // Required empty public constructor
     }
 
@@ -42,11 +52,11 @@ public class PrincipalFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment PrincipalFragment.
+     * @return A new instance of fragment SeeAllEmails.
      */
     // TODO: Rename and change types and number of parameters
-    public static PrincipalFragment newInstance(String param1, String param2) {
-        PrincipalFragment fragment = new PrincipalFragment();
+    public static SeeAllEmails newInstance(String param1, String param2) {
+        SeeAllEmails fragment = new SeeAllEmails();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -57,6 +67,9 @@ public class PrincipalFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -66,48 +79,27 @@ public class PrincipalFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        View v =  inflater.inflate(R.layout.fragment_principal, container, false);
-
-        Button b = v.findViewById(R.id.Btn_Insertar);
-        b.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.contenedor, new InsertarEmails());
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
+        // Inflate the layout for this fragment
+        View v = inflater.inflate(R.layout.fragment_see_all_emails, container, false);
 
 
-        Button b1 = v.findViewById(R.id.bnt_ver);
-        b1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.contenedor, new SeeAllEmails());
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
-
-
-        Button b2 = v.findViewById(R.id.bnt_Editar);
-        b2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.contenedor, new EditarFragment());
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
 
         return v;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        viewModel = ViewModelProviders.of(this).get(ViewModel.class);
+        viewModel.getAllEmails(getContext()).observe(this, new Observer<List<Email>>() {
+            @Override
+            public void onChanged(@Nullable List<Email> emails) {
+
+                Toast.makeText(getContext(), "Actualizamos los emails cada vez que cambie algo", Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -116,7 +108,6 @@ public class PrincipalFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
 
     /*
     @Override

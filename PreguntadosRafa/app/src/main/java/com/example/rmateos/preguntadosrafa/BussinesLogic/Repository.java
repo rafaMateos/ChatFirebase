@@ -1,5 +1,6 @@
 package com.example.rmateos.preguntadosrafa.BussinesLogic;
 
+import android.arch.lifecycle.LiveData;
 import android.content.Context;
 
 import com.example.rmateos.preguntadosrafa.Models.Email;
@@ -23,8 +24,13 @@ public class Repository {
 
     }
 
+    public void delete (Email email, Context contex){
 
-    public Email[] selectEmail ( Context context){
+        AppDatabase.getInstanceDatabase(contex).getQuestionDAO().deleteEmail(email);
+
+    }
+
+    public LiveData<List<Email>> selectEmail (Context context){
 
         return AppDatabase.getInstanceDatabase(context).getQuestionDAO().getListEmail();
 
