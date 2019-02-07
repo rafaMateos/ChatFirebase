@@ -10,11 +10,19 @@ import java.util.List;
 
 public class Repository {
 
-    public void InsertQuest(Email email, Context context){
+
+    public void InsertEmail(Email email, Context context){
 
          AppDatabase.getInstanceDatabase(context).getQuestionDAO().insertEmail(email);
 
     }
+
+    public void Update (Email email, Context contex){
+
+        AppDatabase.getInstanceDatabase(contex).getQuestionDAO().updateEmail(email);
+
+    }
+
 
     public Email[] selectEmail ( Context context){
 

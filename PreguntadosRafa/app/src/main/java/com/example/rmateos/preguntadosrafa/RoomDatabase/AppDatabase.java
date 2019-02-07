@@ -1,10 +1,8 @@
 package com.example.rmateos.preguntadosrafa.RoomDatabase;
-
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
-
 import com.example.rmateos.preguntadosrafa.InterfaceDAO.MyDaoEmails;
 import com.example.rmateos.preguntadosrafa.Models.Email;
 
