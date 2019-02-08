@@ -8,12 +8,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.rmateos.preguntadosrafa.Adapter.EmailAdapter;
 import com.example.rmateos.preguntadosrafa.Models.Email;
 import com.example.rmateos.preguntadosrafa.R;
 import com.example.rmateos.preguntadosrafa.ViewModels.ViewModel;
@@ -33,6 +36,7 @@ public class SeeAllEmails extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    EmailAdapter adapter = new EmailAdapter();
 
     public ViewModel viewModel;
 
@@ -82,6 +86,11 @@ public class SeeAllEmails extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_see_all_emails, container, false);
 
+        RecyclerView recyclerView = v.findViewById(R.id.recycler_view);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setHasFixedSize(true);
+
+        recyclerView.setAdapter(adapter);
 
 
         return v;
@@ -92,14 +101,15 @@ public class SeeAllEmails extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         viewModel = ViewModelProviders.of(this).get(ViewModel.class);
+
         viewModel.getAllEmails(getContext()).observe(this, new Observer<List<Email>>() {
             @Override
             public void onChanged(@Nullable List<Email> emails) {
-
-                Toast.makeText(getContext(), "Actualizamos los emails cada vez que cambie algo", Toast.LENGTH_SHORT).show();
-
+                //Toast.makeText(getContext(), "Actualizamos los emails cada vez que cambie algo", Toast.LENGTH_SHORT).show();
+                adapter.setEmails(emails);
             }
         });
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event

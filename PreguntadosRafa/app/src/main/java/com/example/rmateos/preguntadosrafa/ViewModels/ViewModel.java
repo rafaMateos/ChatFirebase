@@ -20,8 +20,9 @@ private LiveData<List<Email>> allEmails;
     public ViewModel(@NonNull Application application) {
         super(application);
         repository = new Repository();
-       allEmails = repository.selectEmail(application.getBaseContext());
+         allEmails = repository.selectEmail(application.getBaseContext());
     }
+
 
     public void insert(Email email, Context context){
 

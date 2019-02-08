@@ -5,10 +5,13 @@
     android:layout_height="match_parent"
     tools:context=".Fragments.SeeAllEmails">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hola aqui vera to los emails" />
+        android:id="@+id/recycler_view"
+        >
+
+    </android.support.v7.widget.RecyclerView>
 
 </FrameLayout>

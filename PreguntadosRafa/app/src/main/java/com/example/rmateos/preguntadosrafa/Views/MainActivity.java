@@ -15,26 +15,54 @@ import android.widget.ImageView;
 import com.example.rmateos.preguntadosrafa.BussinesLogic.Repository;
 
 import com.example.rmateos.preguntadosrafa.Fragments.PrincipalFragment;
+import com.example.rmateos.preguntadosrafa.Fragments.SeeAllEmails;
+import com.example.rmateos.preguntadosrafa.Models.Email;
 import com.example.rmateos.preguntadosrafa.R;
 import com.example.rmateos.preguntadosrafa.ViewModels.ViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
 
-FrameLayout flecha;
+FrameLayout contenedor,contenedor2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        flecha = findViewById(R.id.contenedor);
+        contenedor = findViewById(R.id.contenedor);
+        contenedor2 = findViewById(R.id.contenedor2);
 
-        PrincipalFragment myf = new PrincipalFragment();
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.add(R.id.contenedor,new PrincipalFragment());
-        ft.commit();
+        FrameLayout frame = findViewById(R.id.contenedor2);
+
+        if(frame != null){
+
+            PrincipalFragment myf = new PrincipalFragment();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.add(R.id.contenedor,new PrincipalFragment());
+            ft.commit();
+
+            SeeAllEmails myf1 = new SeeAllEmails();
+            FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
+            ft1.add(R.id.contenedor2,new SeeAllEmails());
+            ft1.commit();
+
+        }else{
+
+            PrincipalFragment myf = new PrincipalFragment();
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.add(R.id.contenedor,new PrincipalFragment());
+            ft.commit();
+
+
+        }
+
+
+
+
+
 
 
     }

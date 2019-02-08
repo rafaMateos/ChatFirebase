@@ -7,8 +7,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import com.example.rmateos.preguntadosrafa.BussinesLogic.Repository;
+import com.example.rmateos.preguntadosrafa.Models.Email;
 import com.example.rmateos.preguntadosrafa.R;
+import com.example.rmateos.preguntadosrafa.ViewModels.ViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -23,6 +29,12 @@ public class InsertarEmails extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+
+    public EditText titulo;
+    public EditText destinatario;
+    public EditText contenido;
+    private Button save;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -65,7 +77,48 @@ public class InsertarEmails extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_insertar_emails, container, false);
+        View v = inflater.inflate(R.layout.fragment_insertar_emails, container, false);
+
+        titulo = v.findViewById(R.id.titulo);
+        contenido = v.findViewById(R.id.contenido);
+        destinatario = v.findViewById(R.id.destinatario);
+        save = v.findViewById(R.id.Save);
+
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String title = titulo.getText().toString();
+                String content = contenido.getText().toString();
+                String to = destinatario.getText().toString();
+
+                if(title.isEmpty() || content.isEmpty() || to.isEmpty()){
+
+                    Toast.makeText(getContext(), "No puedes dejar campos vacios", Toast.LENGTH_SHORT).show();
+
+                }
+                else{
+
+                    Email emailToInsert = new Email();
+
+                    emailToInsert.titulo = title;
+                    emailToInsert.contenido = content;
+                    emailToInsert.destinatarioEmail = to;
+                    emailToInsert.id = 0;
+
+                    ViewModel viewModel = new ViewModel(getActivity().getApplication());
+                    viewModel.insert(emailToInsert,getContext());
+
+                    Toast.makeText(getContext(), "Email save", Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+        });
+
+
+
+        return v;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

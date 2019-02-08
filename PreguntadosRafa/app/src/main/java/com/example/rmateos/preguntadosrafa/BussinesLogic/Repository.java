@@ -32,7 +32,8 @@ public class Repository {
 
     public LiveData<List<Email>> selectEmail (Context context){
 
-        return AppDatabase.getInstanceDatabase(context).getQuestionDAO().getListEmail();
+       return AppDatabase.getInstanceDatabase(context).getQuestionDAO().getListEmail();
+
 
     }
 

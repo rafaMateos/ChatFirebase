@@ -27,7 +27,7 @@ public abstract class AppDatabase extends RoomDatabase {
                 if(INSTANCE_DATABASE ==  null){
 
                     INSTANCE_DATABASE = Room.databaseBuilder(context.getApplicationContext(),
-                            AppDatabase.class,"EmailDatabase.db").fallbackToDestructiveMigration().build();
+                            AppDatabase.class,"EmailDatabase1.db").allowMainThreadQueries().build();
                 }
 
             }
@@ -37,6 +37,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
     }
 
+    /*
     //Insertamos la primera vez que se cree la base de datos
     private static RoomDatabase.Callback rooCallback = new RoomDatabase.Callback(){
 
@@ -51,4 +52,5 @@ public abstract class AppDatabase extends RoomDatabase {
             db.insert("Email",OnConflictStrategy.IGNORE,cv);
         }
     };
+    */
 }
