@@ -9,8 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.rmateos.preguntadosrafa.R;
+import com.example.rmateos.preguntadosrafa.Views.MainActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -74,10 +76,19 @@ public class PrincipalFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.contenedor, new InsertarEmails());
-                transaction.addToBackStack(null);
-                transaction.commit();
+                if(MainActivity.contenedor2 == null){
+
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.contenedor, new InsertarEmails());
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+
+                }else{
+
+                    //Nothing
+
+                }
+
             }
         });
 
@@ -87,10 +98,16 @@ public class PrincipalFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.contenedor, new SeeAllEmails());
-                transaction.addToBackStack(null);
-                transaction.commit();
+                if(MainActivity.contenedor2 == null){
+
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.contenedor, new SeeAllEmails());
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+
+                }
+
+
             }
         });
 
@@ -100,10 +117,7 @@ public class PrincipalFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.contenedor, new EditarFragment());
-                transaction.addToBackStack(null);
-                transaction.commit();
+                Toast.makeText(getContext(), "Aqui editarias", Toast.LENGTH_SHORT).show();
             }
         });
 

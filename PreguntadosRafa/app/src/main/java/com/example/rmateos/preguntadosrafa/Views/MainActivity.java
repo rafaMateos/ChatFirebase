@@ -14,6 +14,7 @@ import android.widget.ImageView;
 
 import com.example.rmateos.preguntadosrafa.BussinesLogic.Repository;
 
+import com.example.rmateos.preguntadosrafa.Fragments.InsertarEmails;
 import com.example.rmateos.preguntadosrafa.Fragments.PrincipalFragment;
 import com.example.rmateos.preguntadosrafa.Fragments.SeeAllEmails;
 import com.example.rmateos.preguntadosrafa.Models.Email;
@@ -26,7 +27,7 @@ import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
 
-FrameLayout contenedor,contenedor2;
+public static FrameLayout contenedor,contenedor2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +49,13 @@ FrameLayout contenedor,contenedor2;
             FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
             ft1.add(R.id.contenedor2,new SeeAllEmails());
             ft1.commit();
+
+
+            InsertarEmails myf2 = new InsertarEmails();
+            FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
+            ft2.add(R.id.contenedor3,new InsertarEmails());
+            ft2.commit();
+
 
         }else{
 
