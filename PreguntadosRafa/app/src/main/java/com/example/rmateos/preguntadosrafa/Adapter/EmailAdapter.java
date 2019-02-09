@@ -49,6 +49,12 @@ public class EmailAdapter extends RecyclerView.Adapter<EmailAdapter.EmailHolder>
 
     }
 
+    public Email getNoteSwipe(int pos){
+
+        return emails.get(pos);
+
+    }
+
     class EmailHolder extends RecyclerView.ViewHolder{
 
         private TextView title;

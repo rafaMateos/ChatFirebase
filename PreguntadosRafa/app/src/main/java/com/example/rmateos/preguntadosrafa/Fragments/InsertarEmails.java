@@ -110,6 +110,10 @@ public class InsertarEmails extends Fragment {
                     viewModel.insert(emailToInsert,getContext());
 
                     Toast.makeText(getContext(), "Email save", Toast.LENGTH_SHORT).show();
+
+                    titulo.setText("");
+                    contenido.setText("");
+                    destinatario.setText("");
                 }
 
 
