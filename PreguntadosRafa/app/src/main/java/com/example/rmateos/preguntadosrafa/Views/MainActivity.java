@@ -38,12 +38,50 @@ public static FrameLayout contenedor,contenedor2;
 
         FrameLayout frame = findViewById(R.id.contenedor2);
 
-        if(frame != null){
+        PrincipalFragment myf = new PrincipalFragment();
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.contenedor,new PrincipalFragment());
+        ft.commit();
 
-            PrincipalFragment myf = new PrincipalFragment();
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.add(R.id.contenedor,new PrincipalFragment());
-            ft.commit();
+
+        if(frame == null){
+
+            ViewModel viewModel = ViewModelProviders.of(this).get(ViewModel.class);
+            viewModel.getBotonPulsado().observe(this, new Observer<Integer>() {
+                @Override
+                public void onChanged(@Nullable Integer integer) {
+
+                    switch (integer){
+
+                        case R.id.bnt_ver:
+
+                            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                            transaction.replace(R.id.contenedor, new SeeAllEmails());
+                            transaction.addToBackStack(null);
+                            transaction.commit();
+                            break;
+
+                        case R.id.Btn_Insertar:
+
+                            FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
+                            transaction2.replace(R.id.contenedor, new InsertarEmails());
+                            transaction2.addToBackStack(null);
+                            transaction2.commit();
+                            break;
+
+
+                    }
+
+                }
+            });
+
+
+        }else{
+
+            PrincipalFragment myf5 = new PrincipalFragment();
+            FragmentTransaction ft5 = getSupportFragmentManager().beginTransaction();
+            ft5.add(R.id.contenedor,new PrincipalFragment());
+            ft5.commit();
 
             SeeAllEmails myf1 = new SeeAllEmails();
             FragmentTransaction ft1 = getSupportFragmentManager().beginTransaction();
@@ -55,19 +93,7 @@ public static FrameLayout contenedor,contenedor2;
             FragmentTransaction ft2 = getSupportFragmentManager().beginTransaction();
             ft2.add(R.id.contenedor3,new InsertarEmails());
             ft2.commit();
-
-
-        }else{
-
-            PrincipalFragment myf = new PrincipalFragment();
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.add(R.id.contenedor,new PrincipalFragment());
-            ft.commit();
-
-
         }
-
-
 
 
 

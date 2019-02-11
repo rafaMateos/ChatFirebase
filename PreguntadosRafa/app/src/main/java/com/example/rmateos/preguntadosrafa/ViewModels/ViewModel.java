@@ -4,6 +4,7 @@ package com.example.rmateos.preguntadosrafa.ViewModels;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
@@ -17,6 +18,8 @@ public class ViewModel extends AndroidViewModel {
 private Repository repository;
 private LiveData<List<Email>> allEmails;
 
+    private MutableLiveData<Integer> botonPulsado = new MutableLiveData<>();
+
     public ViewModel(@NonNull Application application) {
         super(application);
         repository = new Repository();
@@ -26,6 +29,12 @@ private LiveData<List<Email>> allEmails;
     public void insert(Email email, Context context){
 
         repository.InsertEmail(email,context);
+    }
+
+    public MutableLiveData<Integer> getBotonPulsado(){
+
+        return this.botonPulsado;
+
     }
 
     public void update(Email email,Context context){
