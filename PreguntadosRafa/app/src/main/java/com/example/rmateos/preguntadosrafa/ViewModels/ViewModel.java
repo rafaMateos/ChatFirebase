@@ -23,7 +23,6 @@ private LiveData<List<Email>> allEmails;
          allEmails = repository.selectEmail(application.getBaseContext());
     }
 
-
     public void insert(Email email, Context context){
 
         repository.InsertEmail(email,context);

@@ -83,7 +83,7 @@ public class PrincipalFragment extends Fragment {
                     transaction.addToBackStack(null);
                     transaction.commit();
 
-                }else{
+                }else{//Cambiar esto a que lo observe la actividad y asi no tener que cambiar desde el fragrmet
 
                     //Nothing
 
