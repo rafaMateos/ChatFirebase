@@ -16,14 +16,7 @@ import com.example.rmateos.preguntadosrafa.R;
 import com.example.rmateos.preguntadosrafa.ViewModels.ViewModel;
 import com.example.rmateos.preguntadosrafa.Views.MainActivity;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link PrincipalFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link PrincipalFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class PrincipalFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,6 +30,7 @@ public class PrincipalFragment extends Fragment {
 
     Button b;
     Button b1;
+    Button b2;
 
     public PrincipalFragment() {
         // Required empty public constructor
@@ -74,6 +68,7 @@ public class PrincipalFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                //Cambiamos la propiedad del viewModel
                 viewModel.getBotonPulsado().setValue(b.getId());
 
             }
@@ -85,7 +80,18 @@ public class PrincipalFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+                //Cambiamos la propiedad del viewModel
                 viewModel.getBotonPulsado().setValue(b1.getId());
+
+            }
+        });
+
+        b2 = v.findViewById(R.id.bnt_Editar);
+        b2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                viewModel.getBotonPulsado().setValue(b2.getId());
 
             }
         });

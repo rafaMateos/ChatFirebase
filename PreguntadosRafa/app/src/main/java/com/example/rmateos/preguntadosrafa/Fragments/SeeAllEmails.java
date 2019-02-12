@@ -34,6 +34,7 @@ public class SeeAllEmails extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_see_all_emails, container, false);
+
          recyclerView = v.findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
@@ -55,6 +56,10 @@ public class SeeAllEmails extends Fragment {
                 adapter.setEmails(emails);
             }
         });
+
+
+
+
 
         //Esto es para detectar mover item recycler a izquierda o derecha
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,ItemTouchHelper.RIGHT) {

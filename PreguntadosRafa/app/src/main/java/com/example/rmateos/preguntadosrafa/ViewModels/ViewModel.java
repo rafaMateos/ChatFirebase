@@ -15,10 +15,15 @@ import java.util.List;
 
 public class ViewModel extends AndroidViewModel {
 
-private Repository repository;
-private LiveData<List<Email>> allEmails;
+    private Repository repository;
+    private LiveData<List<Email>> allEmails;
 
+     //Esta propiedad se cambiara cuando se pulse algun boton
     private MutableLiveData<Integer> botonPulsado = new MutableLiveData<>();
+
+    private MutableLiveData<Email> EmailEditar =  new MutableLiveData<>();
+
+
 
     public ViewModel(@NonNull Application application) {
         super(application);
@@ -31,13 +36,22 @@ private LiveData<List<Email>> allEmails;
         repository.InsertEmail(email,context);
     }
 
+
     public MutableLiveData<Integer> getBotonPulsado(){
 
         return this.botonPulsado;
 
     }
 
-    public void update(Email email,Context context){
+    public MutableLiveData<Email> getEmailEditar() {
+
+        return EmailEditar;
+    }
+
+
+
+
+    public void update(Email email, Context context){
         repository.Update(email,context);
     }
 

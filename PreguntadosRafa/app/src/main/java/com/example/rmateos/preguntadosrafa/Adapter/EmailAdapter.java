@@ -1,14 +1,19 @@
 package com.example.rmateos.preguntadosrafa.Adapter;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.rmateos.preguntadosrafa.Fragments.SeeAllEmails;
 import com.example.rmateos.preguntadosrafa.Models.Email;
 import com.example.rmateos.preguntadosrafa.R;
+import com.example.rmateos.preguntadosrafa.ViewModels.ViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +22,7 @@ public class EmailAdapter extends RecyclerView.Adapter<EmailAdapter.EmailHolder>
 
     private List<Email> emails = new ArrayList<>();
 
+    ViewModel Editar;
 
     @NonNull
     @Override
@@ -24,6 +30,7 @@ public class EmailAdapter extends RecyclerView.Adapter<EmailAdapter.EmailHolder>
 
         View itemView = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.email_item,viewGroup,false);
+
 
         return new EmailHolder(itemView);
     }
@@ -61,6 +68,7 @@ public class EmailAdapter extends RecyclerView.Adapter<EmailAdapter.EmailHolder>
         private TextView content;
         private TextView to;
 
+
         public EmailHolder(View itemView) {
             super(itemView);
 
@@ -68,6 +76,10 @@ public class EmailAdapter extends RecyclerView.Adapter<EmailAdapter.EmailHolder>
             content = itemView.findViewById(R.id.Contenido);
             to = itemView.findViewById(R.id.Destinatario);
 
+
         }
+
+
+
     }
 }
