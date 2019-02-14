@@ -28,7 +28,7 @@ public class ViewModel extends AndroidViewModel {
     public ViewModel(@NonNull Application application) {
         super(application);
         repository = new Repository();
-         allEmails = repository.selectEmail(application.getBaseContext());
+        allEmails = repository.selectEmail(application.getBaseContext());
     }
 
     public void insert(Email email, Context context){
@@ -56,7 +56,9 @@ public class ViewModel extends AndroidViewModel {
     }
 
     public void delete(Email email,Context context){
+
         repository.delete(email,context);
+
     }
 
     public LiveData<List<Email>> getAllEmails(Context context){
